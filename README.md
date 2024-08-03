@@ -82,6 +82,14 @@ $ npm run start
 - 「Share」をクリックして「Live Site」の URL をコピーし、以下の GAS を作成する
 
 ```js
+// How to use
+// - Set Glitch's "Live Site" URL
+// - send() once manually using above button "実行"
+//     - you need to authorize this project
+// - Next, go to Trigger Tab
+// - create send() trigger to execute every 5 minutes
+// - you don't have to deploy this GAS
+
 function send(){
 	const URL = "コピーしたURL"
 	response = UrlFetchApp.fetch(URL, {
@@ -98,4 +106,9 @@ function send(){
 - GAS のトリガーを作成して、5 分おきに `send` を実行する
 	- Connect to an external service の許可を与える必要がある
 
+## Render.com
 
+- Web Serviceとして新規作成し，このリポジトリをSource Codeとして選択
+- Build Command: `$ npm install`
+- Start Command: `$ npm run start`
+- Environment Variables: `.env`の`DISCORD_BOT_TOKEN`を設定
