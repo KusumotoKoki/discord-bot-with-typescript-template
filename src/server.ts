@@ -32,7 +32,7 @@ http
       res.end("Discord Bot is Oprateing!");
     }
   })
-  .listen(3000);
+  .listen(process.env.PORT);
 
 if (
   process.env.DISCORD_BOT_TOKEN === undefined ||
