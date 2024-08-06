@@ -111,4 +111,5 @@ function send(){
 - Web Serviceとして新規作成し，このリポジトリをSource Codeとして選択
 - Build Command: `$ npm install`
 - Start Command: `$ npm run start`
-- Environment Variables: `.env`の`DISCORD_BOT_TOKEN`を設定
+- Environment Variables: `.env`の`DISCORD_BOT_TOKEN`と`PORT`を設定
+	- PORT関連の設定について: https://docs.render.com/web-services#port-binding
