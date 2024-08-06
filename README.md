@@ -70,6 +70,7 @@ $ npm run start
 	- https://glitch.com/edit/#!/remix/discord-js-v14-template-glitch/
 - `.env` の `DISCORD_BOT_TOKEN` に先ほどメモしたトークンを入れる
 	- この時点で、bot を導入したサーバーの適当なチャンネルで `hello.` とメッセージを送れば、bot が反応してくれるようになったはず！
+- `.env` の `PORT` に `3000` を設定する
 - `package.json`は，
 	- `dependencies`の部分のみ，TypeScriptプロジェクトの方の`package.json`のものと同じにする（上のAdd Packageボタンから追加すること）
 	- ただし，`@types/node`は不要
@@ -111,5 +112,5 @@ function send(){
 - Web Serviceとして新規作成し，このリポジトリをSource Codeとして選択
 - Build Command: `$ npm install`
 - Start Command: `$ npm run start`
-- Environment Variables: `.env`の`DISCORD_BOT_TOKEN`と`PORT`を設定
+- Environment Variables: `.env` の `DISCORD_BOT_TOKEN` と `PORT` を設定
 	- PORT関連の設定について: https://docs.render.com/web-services#port-binding
