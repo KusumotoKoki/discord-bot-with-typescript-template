@@ -1,4 +1,3 @@
-// import { Client, GatewayIntentBits, Message } from "discord.js";
 import { Client, GatewayIntentBits, Message } from "discord.js";
 import dotenv from "dotenv";
 
