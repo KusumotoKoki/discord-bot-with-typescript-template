@@ -12,7 +12,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-// import { Client, GatewayIntentBits, Message } from "discord.js";
 const discord_js_1 = require("discord.js");
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
@@ -24,12 +23,12 @@ const client = new discord_js_1.Client({
     ],
 });
 client.on("ready", () => {
-    console.log("Bot準備完了！！");
+    console.log("Bot is Ready!!");
 });
 // ここから
 client.on("messageCreate", (message) => __awaiter(void 0, void 0, void 0, function* () {
     if (message.content === "hello.") {
-        message.channel.send(`こんにちは！ ${message.author.toString()}`);
+        message.channel.send(`hello! ${message.author.toString()}`);
     }
 }));
 // ここまで
