@@ -12,7 +12,7 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.post('/', (req: Request, res: Response) => {
+app.post("/", (req: Request, res: Response) => {
   const dataObject = req.body;
   if (!dataObject) {
     res.status(400).send("No post data");
@@ -27,7 +27,7 @@ app.post('/', (req: Request, res: Response) => {
   res.status(200).end();
 });
 
-app.get('/', (req: Request, res: Response) => {
+app.get("/", (req: Request, res: Response) => {
   res.status(200).send("Discord Bot is Operating!");
 });
 
