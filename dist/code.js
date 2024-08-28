@@ -35,15 +35,16 @@ client.on("messageCreate", (message) => {
     (() => __awaiter(void 0, void 0, void 0, function* () {
         // hello. と打って，botが生きているか確認できる
         if (message.content === "hello.") {
+            console.log("hello.");
             yield message.channel.send(`hello! ${message.author.toString()}`);
         }
+        const response = yield (0, openai_1.generateOpenAIResponse)(message.content);
+        yield message.channel.send(`${response}`);
         // 特定のチャンネルでのみ反応するようにする例
         if (message.channel.id === process.env.BOT_TEST_CHANNEL_ID) {
             // OpenAI API を使って返答を生成する
             // 外部ファイルで定義された関数を使う例
             console.log("-- BOT TEST --");
-            const response = yield (0, openai_1.generateOpenAIResponse)(message.content);
-            yield message.channel.send(`${response}`);
         }
     }))().catch((error) => console.error("メッセージ処理中にエラーが発生しました:", error));
 });

@@ -26,16 +26,19 @@ client.on("messageCreate", (message: Message) => {
   (async () => {
     // hello. と打って，botが生きているか確認できる
     if (message.content === "hello.") {
+      console.log("hello.");
       await message.channel.send(`hello! ${message.author.toString()}`);
     }
+
+    const response = await generateOpenAIResponse(message.content);
+    await message.channel.send(`${response}`);
 
     // 特定のチャンネルでのみ反応するようにする例
     if (message.channel.id === process.env.BOT_TEST_CHANNEL_ID) {
       // OpenAI API を使って返答を生成する
       // 外部ファイルで定義された関数を使う例
       console.log("-- BOT TEST --");
-      const response = await generateOpenAIResponse(message.content);
-      await message.channel.send(`${response}`);
+      
     }
   })().catch((error) => console.error("メッセージ処理中にエラーが発生しました:", error));
 });
