@@ -19,6 +19,8 @@ client.on("ready", () => {
 // ここから
 
 client.on("messageCreate", (message: Message) => {
+  console.log("Received a message:", message.content);
+  
   // botからのメッセージには反応しない
   if (message.author.bot) return;
 
