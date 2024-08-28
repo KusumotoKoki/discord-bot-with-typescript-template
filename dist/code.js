@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const dotenv_1 = __importDefault(require("dotenv"));
 const openai_1 = require("./openai/openai");
+const log_1 = require("./log");
 dotenv_1.default.config();
 const client = new discord_js_1.Client({
     intents: [
@@ -25,6 +26,7 @@ const client = new discord_js_1.Client({
 });
 client.on("ready", () => {
     console.log("Bot is Ready!!");
+    (0, log_1.sendLogMessage)(client, "Bot is Ready!");
 });
 // ここから
 client.on("messageCreate", (message) => {

@@ -1,6 +1,7 @@
 import { Client, GatewayIntentBits, Message } from "discord.js";
 import dotenv from "dotenv";
 import { generateOpenAIResponse } from "./openai/openai";
+import { sendLogMessage } from "./log";
 
 dotenv.config();
 
@@ -14,13 +15,14 @@ const client = new Client({
 
 client.on("ready", () => {
   console.log("Bot is Ready!!");
+  sendLogMessage(client, "Bot is Ready!");
 });
 
 // ここから
 
 client.on("messageCreate", (message: Message) => {
   console.log("Received a message:", message.content);
-  
+
   // botからのメッセージには反応しない
   if (message.author.bot) return;
 
