@@ -12,7 +12,7 @@ const port = process.env.PORT || 3000;
 // Middleware to parse JSON and URL-encoded data
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
-app.post('/', (req, res) => {
+app.post("/", (req, res) => {
     const dataObject = req.body;
     if (!dataObject) {
         res.status(400).send("No post data");
@@ -26,7 +26,7 @@ app.post('/', (req, res) => {
     }
     res.status(200).end();
 });
-app.get('/', (req, res) => {
+app.get("/", (req, res) => {
     res.status(200).send("Discord Bot is Operating!");
 });
 app.listen(port, () => {

@@ -1,5 +1,6 @@
 import { Client, GatewayIntentBits, Message } from "discord.js";
 import dotenv from "dotenv";
+import { generateOpenAIResponse } from "./openai/openai";
 
 dotenv.config();
 
@@ -17,10 +18,26 @@ client.on("ready", () => {
 
 // ここから
 
-client.on("messageCreate", async (message: Message) => {
-  if (message.content === "hello.") {
-    message.channel.send(`hello! ${message.author.toString()}`);
-  }
+client.on("messageCreate", (message: Message) => {
+  // botからのメッセージには反応しない
+  if (message.author.bot) return;
+
+  // botの返答は非同期関数として実行されるのでここに
+  (async () => {
+    // hello. と打って，botが生きているか確認できる
+    if (message.content === "hello.") {
+      await message.channel.send(`hello! ${message.author.toString()}`);
+    }
+
+    // 特定のチャンネルでのみ反応するようにする例
+    if (message.channel.id === process.env.BOT_TEST_CHANNEL_ID) {
+      // OpenAI API を使って返答を生成する
+      // 外部ファイルで定義された関数を使う例
+      console.log("-- BOT TEST --");
+      const response = await generateOpenAIResponse(message.content);
+      await message.channel.send(`${response}`);
+    }
+  })().catch((error) => console.error("メッセージ処理中にエラーが発生しました:", error));
 });
 
 // ここまで

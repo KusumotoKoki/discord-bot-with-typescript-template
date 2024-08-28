@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const dotenv_1 = __importDefault(require("dotenv"));
+const openai_1 = require("./openai/openai");
 dotenv_1.default.config();
 const client = new discord_js_1.Client({
     intents: [
@@ -26,10 +27,25 @@ client.on("ready", () => {
     console.log("Bot is Ready!!");
 });
 // ここから
-client.on("messageCreate", (message) => __awaiter(void 0, void 0, void 0, function* () {
-    if (message.content === "hello.") {
-        message.channel.send(`hello! ${message.author.toString()}`);
-    }
-}));
+client.on("messageCreate", (message) => {
+    // botからのメッセージには反応しない
+    if (message.author.bot)
+        return;
+    // botの返答は非同期関数として実行されるのでここに
+    (() => __awaiter(void 0, void 0, void 0, function* () {
+        // hello. と打って，botが生きているか確認できる
+        if (message.content === "hello.") {
+            yield message.channel.send(`hello! ${message.author.toString()}`);
+        }
+        // 特定のチャンネルでのみ反応するようにする例
+        if (message.channel.id === process.env.BOT_TEST_CHANNEL_ID) {
+            // OpenAI API を使って返答を生成する
+            // 外部ファイルで定義された関数を使う例
+            console.log("-- BOT TEST --");
+            const response = yield (0, openai_1.generateOpenAIResponse)(message.content);
+            yield message.channel.send(`${response}`);
+        }
+    }))().catch((error) => console.error("メッセージ処理中にエラーが発生しました:", error));
+});
 // ここまで
 client.login(process.env.DISCORD_BOT_TOKEN);
