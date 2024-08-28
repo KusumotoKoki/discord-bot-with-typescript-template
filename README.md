@@ -114,3 +114,8 @@ function send(){
 - Start Command: `$ npm run start`
 - Environment Variables: `.env` の `DISCORD_BOT_TOKEN` と `PORT` を設定
 	- PORT関連の設定について: https://docs.render.com/web-services#port-binding
+
+>[!warning]
+> Render.com では，Pre-Deploy Command が有料機能となっているので，忘れずにローカル環境で `$ npm run build` をしたあとで git push する．
+
+
