@@ -30,10 +30,11 @@ client.on("ready", () => {
 });
 // ここから
 client.on("messageCreate", (message) => {
-    console.log("Received a message:", message.content);
     // botからのメッセージには反応しない
     if (message.author.bot)
         return;
+    // 送信されたメッセージの確認
+    (0, log_1.sendLogMessage)(client, `Received a message: ${message.content}`);
     // botの返答は非同期関数として実行されるのでここに
     (() => __awaiter(void 0, void 0, void 0, function* () {
         // hello. と打って，botが生きているか確認できる
@@ -41,13 +42,13 @@ client.on("messageCreate", (message) => {
             console.log("hello.");
             yield message.channel.send(`hello! ${message.author.toString()}`);
         }
-        const response = yield (0, openai_1.generateOpenAIResponse)(message.content);
-        yield message.channel.send(`${response}`);
         // 特定のチャンネルでのみ反応するようにする例
         if (message.channel.id === process.env.BOT_TEST_CHANNEL_ID) {
             // OpenAI API を使って返答を生成する
             // 外部ファイルで定義された関数を使う例
-            console.log("-- BOT TEST --");
+            (0, log_1.sendLogMessage)(client, "-- BOT TEST --");
+            const response = yield (0, openai_1.generateOpenAIResponse)(message.content);
+            yield message.channel.send(`${response}`);
         }
     }))().catch((error) => console.error("メッセージ処理中にエラーが発生しました:", error));
 });

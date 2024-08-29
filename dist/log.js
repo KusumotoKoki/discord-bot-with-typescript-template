@@ -29,7 +29,9 @@ function sendLogMessage(client, message) {
                 console.error("ログチャンネルが見つからないか、テキストチャンネルではありません。");
                 return;
             }
-            yield logChannel.send(message);
+            yield logChannel.send(`-- Log --
+${message}
+---------`);
             console.log("ログメッセージが送信されました。");
         }
         catch (error) {

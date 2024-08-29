@@ -17,7 +17,9 @@ export async function sendLogMessage(client: Client, message: string): Promise<v
       return;
     }
 
-    await logChannel.send(message);
+    await logChannel.send(`-- Log --
+${message}
+---------`);
     console.log("ログメッセージが送信されました。");
   } catch (error) {
     console.error("ログメッセージの送信中にエラーが発生しました:", error);
