@@ -118,4 +118,28 @@ function send(){
 >[!warning]
 > Render.com では，Pre-Deploy Command が有料機能となっているので，忘れずにローカル環境で `$ npm run build` をしたあとで git push する．
 
+- 以下のGASを作成する
 
+```js
+// How to use
+// - Set Render.com's Deployment URL (https://XXXXXXXXXXXXXXXXXXX.onrender.com)
+// - send() once manually using above button "実行"
+//     - you need to authorize this project
+// - Next, go to Trigger Tab
+// - create send() trigger to execute every 5 minutes
+
+function send(){
+ 	const URL = "https://discord-bot-with-typescript-template.onrender.com"
+ 	response = UrlFetchApp.fetch(URL, {
+ 		'Content-Type': 'application/json; charset=utf-8',
+ 		'method': 'post',
+ 		'payload': {
+ 			'type': 'wake'
+ 		},
+ 		'muteHttpExceptions': true
+ 	});
+}
+```
+
+- GAS のトリガーを作成して、5 分おきに `send` を実行する
+	- Connect to an external service の許可を与える必要がある
