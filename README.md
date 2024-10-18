@@ -55,6 +55,7 @@ $ cp .env.example .env
 ### Start the Bot
 
 ```bash
+$ npm intall
 $ npm run build
 $ npm run start
 ```
