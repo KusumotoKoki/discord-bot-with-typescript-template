@@ -44,6 +44,4 @@ ${message}
     .catch((error) => {
       console.error("sendLogMessage: Error fetching the Log Channel:", error);
     });
-
-  // Function returns immediately, without waiting for the asynchronous operations to complete
 }

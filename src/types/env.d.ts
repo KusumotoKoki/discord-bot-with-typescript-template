@@ -4,6 +4,5 @@ declare namespace NodeJS {
     PORT: number;
     BOT_TEST_CHANNEL_ID: string;
     BOT_LOG_CHANNEL_ID: string;
-    OPENAI_API_KEY: string;
   }
 }

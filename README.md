@@ -4,8 +4,8 @@
 
 - ESLint
 - Prettier
-- Jest
 - dotenv
+- Express
 
 ## Quick Start
 
@@ -39,7 +39,13 @@ $ git clone git@github.com:KusumotoKoki/discord-bot-with-typescript-template.git
       - とりあえず `Administrator`
   - 下の Generated URL へ飛んで、サーバーへ導入
 
-### Botを起動する
+### Set Up Environment Variables
+
+```bash
+$ cp .env.example .env
+```
+
+### Start the Bot
 
 ```bash
 $ npm run build
@@ -48,9 +54,21 @@ $ npm run start
 
 ## Customization
 
+### Overview
+
+次のように動作する
+
+- `npm run start` で，`node dist/server.js`が実行される
+- `server.js`では，
+  - Express サーバーを起動
+  - `code.js`を呼び出し
+- `code.js`では，
+  - ready イベントや messageCreate イベントが発生した時にbotが何をするかを登録
+  - `client.login()`が成功すると，readyイベントが呼ばれる
+
 ### Basic
 
-- `src/` 以下にコードを書いていく
+- ## `src/` 以下にコードを書いていく
 - `.env` に環境変数を追加したら，`src/types/env.d.ts` に環境変数の型を追加する
 - `$ npm i <package>` や `$ npm i <package> --save-dev` でパッケージを追加
 

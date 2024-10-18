@@ -49,7 +49,6 @@ app.listen(port, () => {
 });
 
 if (
-  // eslint-disable-next-line operator-linebreak
   process.env.DISCORD_BOT_TOKEN === undefined ||
   process.env.DISCORD_BOT_TOKEN === ""
 ) {
@@ -58,4 +57,4 @@ if (
   process.exit(0);
 }
 
-require("./code.js");
+import "./code.js";
