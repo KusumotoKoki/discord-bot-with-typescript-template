@@ -69,6 +69,8 @@ $ npm run build
 $ npm run start
 ```
 
+Botのテスト用のチャンネルで，`hello.`と送信して，Botから返答が返って来ればOK
+
 ## Customization
 
 ### Overview
