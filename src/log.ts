@@ -3,25 +3,47 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-export async function sendLogMessage(client: Client, message: string): Promise<void> {
-  try {
-    const logChannelId = process.env.BOT_LOG_CHANNEL_ID;
-    if (!logChannelId) {
-      console.error("BOT_LOG_CHANNEL_IDが設定されていません。");
-      return;
-    }
+/* eslint-disable no-console */
+export function sendLogMessage(client: Client, message: string): void {
+  const logChannelId = process.env.BOT_LOG_CHANNEL_ID;
+  if (!logChannelId) {
+    console.error("sendLogMessage: BOT_LOG_CHANNEL_ID is not set.");
+    return;
+  }
 
-    const logChannel = await client.channels.fetch(logChannelId);
-    if (!logChannel || !(logChannel instanceof TextChannel)) {
-      console.error("ログチャンネルが見つからないか、テキストチャンネルではありません。");
-      return;
-    }
+  // Fetch the log channel without awaiting the result
+  client.channels
+    .fetch(logChannelId)
+    .then((logChannel) => {
+      if (!logChannel || !(logChannel instanceof TextChannel)) {
+        console.error(
+          "sendLogMessage: Log Channel not found or is not a text channel.",
+        );
+        return;
+      }
 
-    await logChannel.send(`-- Log --
+      // Send the message without awaiting the result
+      logChannel
+        .send(
+          `-- Log --
+${message}
+---------`,
+        )
+        .then(() => {
+          console.log(
+            "sendLogMessage: The following log message was sent to the Log Channel.",
+          );
+          console.log(`-- Log --
 ${message}
 ---------`);
-    console.log("ログメッセージが送信されました。");
-  } catch (error) {
-    console.error("ログメッセージの送信中にエラーが発生しました:", error);
-  }
+        })
+        .catch((error) => {
+          console.error("sendLogMessage: Failed to send log message:", error);
+        });
+    })
+    .catch((error) => {
+      console.error("sendLogMessage: Error fetching the Log Channel:", error);
+    });
+
+  // Function returns immediately, without waiting for the asynchronous operations to complete
 }
