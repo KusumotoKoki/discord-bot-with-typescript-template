@@ -26,6 +26,9 @@ $ git clone git@github.com:KusumotoKoki/discord-bot-with-typescript-template.git
 
 - [Discord Developer Potal](https://discord.com/developers/applications)へ行き，「New Application」
   - ここでは，BotでなくApplicationの名前をつける（後から変更可能）
+- `Installation` タブへ
+  - Installation Contexts: Guid Install のみにチェック
+  - Install Link: None に
 - `Bot` タブへ
   - Build-A-Bot
     - `Bot` のアイコンや名前を設定できる
