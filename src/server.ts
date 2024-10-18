@@ -1,9 +1,7 @@
-import express, { Request, Response } from 'express';
+import express, { Request, Response } from "express";
 import dotenv from "dotenv";
 
 dotenv.config();
-
-// GASでwakeさせること。
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -12,19 +10,33 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Define the interface for the request body
+interface RequestData {
+  type: string;
+}
+
 app.post("/", (req: Request, res: Response) => {
-  const dataObject = req.body;
-  if (!dataObject) {
+  const requestData = req.body as RequestData;
+
+  if (!requestData) {
     res.status(400).send("No post data");
     return;
   }
-  console.log(`post:${dataObject.type}`);
-  if (dataObject.type === "wake") {
-    console.log("Woke up in post");
-    res.status(200).end();
-    return;
+
+  // eslint-disable-next-line no-console
+  console.log(`post: ${requestData.type}`);
+
+  // "wake" 以外のリクエストも処理できるように
+  switch (requestData.type) {
+    case "wake":
+      // eslint-disable-next-line no-console
+      console.log("Woke up in post");
+      res.status(200).end();
+      break;
+    default:
+      res.status(400).send("Unknown request type");
+      break;
   }
-  res.status(200).end();
 });
 
 app.get("/", (req: Request, res: Response) => {
@@ -32,16 +44,17 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.listen(port, () => {
+  // eslint-disable-next-line no-console
   console.log(`Server is running on port ${port}`);
 });
-
 
 if (
   process.env.DISCORD_BOT_TOKEN === undefined ||
   process.env.DISCORD_BOT_TOKEN === ""
 ) {
-  console.log("DISCORD_BOT_TOKENを設定してください。");
+  // eslint-disable-next-line no-console
+  console.error("Please configure the DISCORD_BOT_TOKEN.");
   process.exit(0);
 }
 
-require("./code.js");
+import "./code.js";
