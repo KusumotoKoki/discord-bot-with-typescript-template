@@ -2,6 +2,12 @@
 
 ## Overview
 
+TypeScriptを使用したdiscord bot開発のテンプレート（自分用）。
+
+[Discord.js Japan User Groupの記事](https://scrapbox.io/discordjs-japan/Glitch%E3%81%A7%E9%96%8B%E7%99%BA%E3%82%92%E5%A7%8B%E3%82%81%E3%82%8B%E4%BA%BA%E3%81%AE%E3%81%9F%E3%82%81%E3%81%AE%E3%83%86%E3%83%B3%E3%83%97%E3%83%AC%E3%83%BC%E3%83%88)を参考にしました。
+
+使用パッケージ：
+- discord.js
 - ESLint
 - Prettier
 - dotenv
@@ -135,3 +141,30 @@ function send() {
 
 > [!warning]
 > Render.com では，Pre-Deploy Command が有料機能となっているので，忘れずにローカル環境で `$ npm run build` をしたあとで git push する．
+
+- 以下のGASを作成する
+
+```js
+// How to use
+// - Set Render.com's Deployment URL (https://XXXXXXXXXXXXXXXXXXX.onrender.com)
+// - send() once manually using above button "実行"
+//     - you need to authorize this project
+// - Next, go to Trigger Tab
+// - create send() trigger to execute every 5 minutes
+
+function send(){
+ 	const URL = "https://discord-bot-with-typescript-template.onrender.com"
+ 	response = UrlFetchApp.fetch(URL, {
+ 		'Content-Type': 'application/json; charset=utf-8',
+ 		'method': 'post',
+ 		'payload': {
+ 			'type': 'wake'
+ 		},
+ 		'muteHttpExceptions': true
+ 	});
+}
+```
+
+- GAS のトリガーを作成して、5 分おきに `send` を実行する
+	- Connect to an external service の許可を与える必要がある
+
