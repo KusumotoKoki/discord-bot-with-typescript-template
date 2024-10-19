@@ -102,6 +102,10 @@ Botのテスト用のチャンネルで，`hello.`と送信して，Botから返
 - `$ nvm use` で，バージョンを変更
 - `$ rm -rf node_modules package-lock.json`, `npm install` で依存関係を更新
 
+### Slash Commands
+
+- `feature/SlashCommands` ブランチで，SlashCommand のサンプルあります
+
 ## Deploy
 
 ### Glitch
