@@ -2,6 +2,7 @@ import { Client, GatewayIntentBits, Message } from "discord.js";
 import dotenv from "dotenv";
 import { sendLogMessage } from "./log";
 import { handleMessageCreate } from "./events/messageCreate/handleMessageCreate";
+import { handleInteractionCreate } from "./events/interactionCreate/handleInteractionCreate";
 
 dotenv.config();
 
@@ -23,6 +24,12 @@ client.on("ready", () => {
 // messageCreate イベントが発生したら実行する内容
 client.on("messageCreate", (message: Message) => {
   handleMessageCreate(client, message);
+});
+
+// SlashCommandの実行
+client.on("interactionCreate", async (interaction) => {
+  if (!interaction.isChatInputCommand()) return;
+  await handleInteractionCreate(client, interaction);
 });
 // ---- カスタマイズ範囲終了 ----
 

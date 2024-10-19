@@ -102,6 +102,14 @@ Botのテスト用のチャンネルで，`hello.`と送信して，Botから返
 - `$ nvm use` で，バージョンを変更
 - `$ rm -rf node_modules package-lock.json`, `npm install` で依存関係を更新
 
+### Slash Commands
+
+- `feature/SlashCommands` ブランチで，SlashCommand のサンプルあります
+- `src/slashCommands/exports` 直下のファイルで，各コマンドを `SlashCommand` 型（定義は `src/types/slashCommand.d.ts`）で default エクスポートしてください
+- `APPLICATION_ID` : Bot のポータルで取得可能，と，`COMMAND_GUILD_ID` : コマンドを使いたいサーバーのID を環境変数に設定してください
+- コマンドをグローバルに使いたい場合は，`src/slashCommands/registerSlashCommand.ts` をいじくってください（コマンドのダブりを避けるために，別アプリケーションとしてデプロイする必要があるかも）
+  - 詳しくは: https://discordjs.guide/creating-your-bot/command-deployment.html#global-commands
+
 ## Deploy
 
 ### Glitch

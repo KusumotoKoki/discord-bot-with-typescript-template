@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
 import dotenv from "dotenv";
+import { registerCommands } from "./slashCommands/registerSlashCommands.js";
 
 dotenv.config();
 
@@ -43,18 +44,28 @@ app.get("/", (req: Request, res: Response) => {
   res.status(200).send("Discord Bot is Operating!");
 });
 
-app.listen(port, () => {
+// サーバー起動時に実行されるもの
+app.listen(port, async () => {
   // eslint-disable-next-line no-console
   console.log(`Server is running on port ${port}`);
-});
 
-if (
-  process.env.DISCORD_BOT_TOKEN === undefined ||
-  process.env.DISCORD_BOT_TOKEN === ""
-) {
-  // eslint-disable-next-line no-console
-  console.error("Please configure the DISCORD_BOT_TOKEN.");
-  process.exit(0);
-}
+  // 必須の環境変数が設定されているか確認
+  if (!process.env.DISCORD_BOT_TOKEN) {
+    // eslint-disable-next-line no-console
+    console.error("Please configure the DISCORD_BOT_TOKEN.");
+    process.exit(0);
+  }
+
+  // Discordコマンドの登録
+  try {
+    // サーバー起動時にコマンドを登録
+    await registerCommands();
+    // eslint-disable-next-line no-console
+    console.log("Discord commands registered successfully.");
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error("Error registering Discord commands:", error);
+  }
+});
 
 import "./code.js";
